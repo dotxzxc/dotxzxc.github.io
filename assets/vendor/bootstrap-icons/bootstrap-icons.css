@@ -533,6 +533,7 @@ url("./fonts/bootstrap-icons.woff?8d200481aa7f02a2d63a331fc782cfaf") format("wof
 .bi-disc-fill::before { content: "\f2fe"; }
 .bi-disc::before { content: "\f2ff"; }
 .bi-discord::before { content: "\f300"; }
+.bi-github::before { content: "\f3ed"; }
 .bi-display-fill::before { content: "\f301"; }
 .bi-display::before { content: "\f302"; }
 .bi-distribute-horizontal::before { content: "\f303"; }
@@ -844,6 +845,7 @@ url("./fonts/bootstrap-icons.woff?8d200481aa7f02a2d63a331fc782cfaf") format("wof
 .bi-input-cursor-text::before { content: "\f435"; }
 .bi-input-cursor::before { content: "\f436"; }
 .bi-discord::before { content: "\f300"; }
+.bi-github::before { content: "\f3ed"; }
 .bi-intersect::before { content: "\f438"; }
 .bi-journal-album::before { content: "\f439"; }
 .bi-journal-arrow-down::before { content: "\f43a"; }
