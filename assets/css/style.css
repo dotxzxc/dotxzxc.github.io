@@ -86,7 +86,7 @@ h6 {
   display: inline-block;
 }
 
-#header h2 {
+#header h2, h3 {
   font-size: 24px;
   margin-top: 20px;
   color: rgba(255, 255, 255, 0.8);
@@ -131,7 +131,7 @@ h6 {
     font-size: 36px;
   }
 
-  #header h2 {
+  #header h2, h3 {
     font-size: 20px;
     line-height: 30px;
   }
@@ -159,6 +159,9 @@ h6 {
 
 #header.header-top .social-links,
 #header.header-top h2 {
+  display: none;
+}
+#header.header-top h3 {
   display: none;
 }
 
@@ -380,7 +383,7 @@ section .container {
   font-family: "Poppins", sans-serif;
 }
 
-.price h5 {
+.whyme h6 {
   font-size: 20px;
   font-weight: 500;
   padding: 0;
@@ -388,7 +391,7 @@ section .container {
   margin: 5px 0 5px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #33e533;
+  color: #dcaa15;
   font-family: "Poppins", sans-serif;
 }
 
