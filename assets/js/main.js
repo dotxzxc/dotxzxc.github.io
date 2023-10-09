@@ -1,252 +1,300 @@
-/**
-* Template Name: Personal - v4.8.1
-* Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
+/* ====================================
+Template Name: GenAI
+Description: AI Content Writing & Copywriting HTML5 Landing Page Template
+Template URI: https://themeforest.net/item/genai-ai-based-copywriting-and-content-writing-landing-page-template/45150495
+Author: Marvel Theme
+Author URI: https://themeforest.net/user/marvel_theme
+Version: 1.1
+Published: 1 May 2023
+Last Update: 9 May 2023
+==================================== */
+
+/* Table of contents
+====================================
+1. AOS initialization
+2. Typing text animation
+3. Video popup
+4. Pricing switch
+5. Review carousel
+6. Review rolling carousel
+7. Review rolling carousel reversed
+8. Contact form
+9. Sticky navbar
+
+====================================
 */
-(function() {
-  "use strict";
 
-  /**
-   * Easy selector helper function
-   */
-  const select = (el, all = false) => {
-    el = el.trim()
-    if (all) {
-      return [...document.querySelectorAll(el)]
-    } else {
-      return document.querySelector(el)
-    }
-  }
+(function () {
+	// 1. AOS initialization
+	AOS.init({
+		disable: false,
+		startEvent: "DOMContentLoaded",
+		initClassName: "aos-init",
+		animatedClassName: "aos-animate",
+		useClassNames: false,
+		disableMutationObserver: false,
+		debounceDelay: 50,
+		throttleDelay: 99,
+		offset: 120,
+		delay: 50,
+		duration: 600,
+		easing: "cubic-bezier(0.77, 0, 0.175, 1)",
+		once: true,
+		mirror: false,
+		anchorPlacement: "top-bottom",
+	});
 
-  /**
-   * Easy event listener function
-   */
-  const on = (type, el, listener, all = false) => {
-    let selectEl = select(el, all)
+	// 2. Typing text animation
+	const typedElements = document.querySelectorAll(".typed-animation");
+	if (typedElements.length > 0) {
+		typedElements.forEach((typedElement) => {
+			const typedAnimation = new Typed(typedElement, {
+				strings: JSON.parse(typedElement.dataset.strings),
+				typeSpeed: 80,
+				backSpeed: 40,
+				backDelay: 3000,
+				startDelay: 1000,
+				fadeOut: true,
+				loop: true,
+			});
+		});
+	}
 
-    if (selectEl) {
-      if (all) {
-        selectEl.forEach(e => e.addEventListener(type, listener))
-      } else {
-        selectEl.addEventListener(type, listener)
-      }
-    }
-  }
+	// 3. Video popup
+	new VenoBox({
+		selector: ".video-play-btn",
+	});
 
-  /**
-   * Scrolls to an element with header offset
-   */
-  const scrollto = (el) => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
-  }
+	// 4. Pricing switch
+	const tableWrapper = document.querySelector(".pricing-table");
+	if (tableWrapper) {
+		const switchInputs = document.querySelectorAll(".switch-wrapper input");
+		const prices = tableWrapper.querySelectorAll(".price");
+		const toggleClass = "d-none";
 
-  /**
-   * Mobile nav toggle
-   */
-  on('click', '.mobile-nav-toggle', function(e) {
-    select('#navbar').classList.toggle('navbar-mobile')
-    this.classList.toggle('bi-list')
-    this.classList.toggle('bi-x')
-  })
+		switchInputs.forEach((switchInput) => {
+			switchInput.addEventListener("input", function () {
+				prices.forEach((price) => {
+					price.classList.add(toggleClass);
+				});
 
-  /**
-   * Scrool with ofset on links with a class name .scrollto
-   */
-  on('click', '#navbar .nav-link', function(e) {
-    let section = select(this.hash)
-    if (section) {
-      e.preventDefault()
+				const activePrices = tableWrapper.querySelectorAll(`.price.${switchInput.id}`);
+				activePrices.forEach((activePrice) => {
+					activePrice.classList.remove(toggleClass);
+				});
+			});
+		});
+	}
 
-      let navbar = select('#navbar')
-      let header = select('#header')
-      let sections = select('section', true)
-      let navlinks = select('#navbar .nav-link', true)
+	// 5. Review carousel
+	const reviewCarousel = new Swiper(".review-carousel", {
+		loop: false,
+		freemode: true,
+		slidesPerView: 1,
+		spaceBetween: 24,
+		speed: 1000,
+		autoplay: {
+			delay: 3000,
+			disableOnInteraction: true,
+		},
+		pagination: {
+			el: ".review-carousel-container .swiper-pagination",
+			type: "bullets",
+			clickable: true,
+		},
+		breakpoints: {
+			1: {
+				slidesPerView: 1,
+			},
+			768: {
+				slidesPerView: 2,
+			},
+			1200: {
+				slidesPerView: 3,
+			},
+		},
+	});
 
-      navlinks.forEach((item) => {
-        item.classList.remove('active')
-      })
+	// 6. Review rolling carousel
+	const reviewRollingCarousel = new Swiper(".review-rolling-carousel", {
+		loop: true,
+		freemode: true,
+		slidesPerView: 1,
+		spaceBetween: 24,
+		centeredSlides: false,
+		allowTouchMove: true,
+		speed: 10000,
+		autoplay: {
+			delay: 1,
+			disableOnInteraction: false,
+		},
+		breakpoints: {
+			1: {
+				slidesPerView: 1.1,
+			},
+			768: {
+				slidesPerView: 2,
+			},
+			992: {
+				slidesPerView: 2.5,
+			},
+			1200: {
+				slidesPerView: 3,
+			},
+			1400: {
+				slidesPerView: 3.5,
+			},
+			1600: {
+				slidesPerView: 4,
+			},
+			1900: {
+				slidesPerView: 4.5,
+			},
+		},
+	});
 
-      this.classList.add('active')
+	// 7. Review rolling carousel reversed
+	const reviewRollingCarouselReversed = new Swiper(".review-rolling-carousel-reversed", {
+		loop: true,
+		freemode: true,
+		slidesPerView: 1,
+		spaceBetween: 24,
+		centeredSlides: false,
+		allowTouchMove: true,
+		speed: 8000,
+		autoplay: {
+			delay: 1,
+			reverseDirection: true,
+			disableOnInteraction: false,
+		},
+		breakpoints: {
+			1: {
+				slidesPerView: 1.1,
+			},
+			768: {
+				slidesPerView: 2,
+			},
+			992: {
+				slidesPerView: 2.5,
+			},
+			1200: {
+				slidesPerView: 3,
+			},
+			1400: {
+				slidesPerView: 3.5,
+			},
+			1600: {
+				slidesPerView: 4,
+			},
+			1900: {
+				slidesPerView: 4.5,
+			},
+		},
+	});
 
-      if (navbar.classList.contains('navbar-mobile')) {
-        navbar.classList.remove('navbar-mobile')
-        let navbarToggle = select('.mobile-nav-toggle')
-        navbarToggle.classList.toggle('bi-list')
-        navbarToggle.classList.toggle('bi-x')
-      }
+	// 8. Contact form
+	const form = document.querySelector("#contact-form");
 
-      if (this.hash == '#header') {
-        header.classList.remove('header-top')
-        sections.forEach((item) => {
-          item.classList.remove('section-show')
-        })
-        return;
-      }
+	if (form) {
+		const formStatus = form.querySelector(".status");
 
-      if (!header.classList.contains('header-top')) {
-        header.classList.add('header-top')
-        setTimeout(function() {
-          sections.forEach((item) => {
-            item.classList.remove('section-show')
-          })
-          section.classList.add('section-show')
+		form.addEventListener("submit", function (e) {
+			e.preventDefault();
+			let formData = new FormData(form);
 
-        }, 350);
-      } else {
-        sections.forEach((item) => {
-          item.classList.remove('section-show')
-        })
-        section.classList.add('section-show')
-      }
+			let xhr = new XMLHttpRequest();
+			xhr.open("POST", form.action);
+			xhr.onload = function () {
+				if (xhr.status === 200) {
+					formStatus.classList.remove("d-none");
+					formStatus.classList.remove("alert-danger");
+					formStatus.classList.add("alert-success");
+					formStatus.textContent = xhr.responseText;
+					form.reset();
+					setTimeout(() => {
+						formStatus.classList.add("d-none");
+					}, 6000);
+				} else {
+					formStatus.classList.remove("d-none");
+					formStatus.classList.remove("alert-success");
+					formStatus.classList.add("alert-danger");
+					if (xhr.responseText !== "") {
+						formStatus.textContent = xhr.responseText;
+					} else {
+						formStatus.textContent = "Oops! An error occurred and your message could not be sent.";
+					}
+					setTimeout(() => {
+						formStatus.classList.add("d-none");
+					}, 6000);
+				}
+			};
+			xhr.send(formData);
+		});
+	}
 
-      scrollto(this.hash)
-    }
-  }, true)
+	// 9. Sticky navbar
+	const header = document.querySelector(".navbar");
+	const htmlBody = document.querySelector("html");
 
-  /**
-   * Activate/show sections on load with hash links
-   */
-  window.addEventListener('load', () => {
-    if (window.location.hash) {
-      let initial_nav = select(window.location.hash)
+	const headroomOptions = {
+		// vertical offset in px before element is first unpinned
+		offset: {
+			up: 100,
+			down: 50,
+		},
+		// scroll tolerance in px before state changes
+		tolerance: {
+			up: 5,
+			down: 0,
+		},
+		// css classes to apply
+		classes: {
+			// when element is initialised
+			initial: "headroom",
+			// when scrolling up
+			pinned: "headroom--pinned",
+			// when scrolling down
+			unpinned: "headroom--unpinned",
+			// when above offset
+			top: "headroom--top",
+			// when below offset
+			notTop: "headroom--not-top",
+			// when at bottom of scroll area
+			bottom: "headroom--bottom",
+			// when not at bottom of scroll area
+			notBottom: "headroom--not-bottom",
+			// when frozen method has been called
+			frozen: "headroom--frozen",
+		},
+	};
 
-      if (initial_nav) {
-        let header = select('#header')
-        let navlinks = select('#navbar .nav-link', true)
+	if (header) {
+		// Initialize headroom
+		const headroom = new Headroom(header, headroomOptions);
+		headroom.init();
 
-        header.classList.add('header-top')
+		// body padding top of fixed header
+		const onSectionTop = header.classList.contains("on-over");
+		if (!onSectionTop) {
+			const headerHeight = header.offsetHeight;
+			htmlBody.style.paddingTop = headerHeight + "px";
+			htmlBody.style.scrollPaddingTop = headerHeight + "px";
+		}
 
-        navlinks.forEach((item) => {
-          if (item.getAttribute('href') == window.location.hash) {
-            item.classList.add('active')
-          } else {
-            item.classList.remove('active')
-          }
-        })
+		// Collapse navbar menu on scoll down
+		if (window.matchMedia("(max-width: 991px)").matches) {
+			const navbarCollapse = header.querySelector(".navbar-collapse");
+			const navbarToggler = header.querySelector(".navbar-toggler");
 
-        setTimeout(function() {
-          initial_nav.classList.add('section-show')
-        }, 350);
+			window.addEventListener("scroll", () => {
+				const scrollPosition = window.scrollY;
+				const isExpanded = navbarToggler.getAttribute("aria-expanded") === "true";
 
-        scrollto(window.location.hash)
-      }
-    }
-  });
-
-  /**
-   * Skills animation
-   */
-  let skilsContent = select('.skills-content');
-  if (skilsContent) {
-    new Waypoint({
-      element: skilsContent,
-      offset: '80%',
-      handler: function(direction) {
-        let progress = select('.progress .progress-bar', true);
-        progress.forEach((el) => {
-          el.style.width = el.getAttribute('aria-valuenow') + '%'
-        });
-      }
-    })
-  }
-
-  /**
-   * Testimonials slider
-   */
-  new Swiper('.testimonials-slider', {
-    speed: 600,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    slidesPerView: 'auto',
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 20
-      },
-
-      1200: {
-        slidesPerView: 3,
-        spaceBetween: 20
-      }
-    }
-  });
-
-  /**
-   * Porfolio isotope and filter
-   */
-  window.addEventListener('load', () => {
-    let portfolioContainer = select('.portfolio-container');
-    if (portfolioContainer) {
-      let portfolioIsotope = new Isotope(portfolioContainer, {
-        itemSelector: '.portfolio-item',
-        layoutMode: 'fitRows'
-      });
-
-      let portfolioFilters = select('#portfolio-flters li', true);
-
-      on('click', '#portfolio-flters li', function(e) {
-        e.preventDefault();
-        portfolioFilters.forEach(function(el) {
-          el.classList.remove('filter-active');
-        });
-        this.classList.add('filter-active');
-
-        portfolioIsotope.arrange({
-          filter: this.getAttribute('data-filter')
-        });
-      }, true);
-    }
-
-  });
-
-  /**
-   * Initiate portfolio lightbox 
-   */
-  const portfolioLightbox = GLightbox({
-    selector: '.portfolio-lightbox'
-  });
-
-  /**
-   * Initiate portfolio details lightbox 
-   */
-  const portfolioDetailsLightbox = GLightbox({
-    selector: '.portfolio-details-lightbox',
-    width: '90%',
-    height: '90vh'
-  });
-
-  /**
-   * Portfolio details slider
-   */
-  new Swiper('.portfolio-details-slider', {
-    speed: 400,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    }
-  });
-
-  /**
-   * Initiate Pure Counter 
-   */
-  new PureCounter();
-
-})()
+				if (isExpanded && scrollPosition > 0) {
+					navbarCollapse.classList.remove("show");
+					navbarToggler.setAttribute("aria-expanded", "false");
+				}
+			});
+		}
+	}
+})();
